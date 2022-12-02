@@ -1,21 +1,23 @@
-#lang racket
+#lang racket/base
+
+(require (only-in racket file->lines))
 
 (define FILE "input/1.txt")
-(provide TEST_FILE)
-(define TEST_FILE "input/1-test.txt")
+(provide TEST-FILE)
+(define TEST-FILE "input/1-test.txt")
 
 ;; MAIN
 (module+ main 
     (define SORTED_ELVES (sorted-elf-intake FILE))
-    (displayln (first SORTED_ELVES))
-    (displayln (first-n-sum 3 SORTED_ELVES))
+    (car SORTED_ELVES)
+    (first-n-sum 3 SORTED_ELVES)
 )
 
 ;; PART ONE
 
 ;; Return the caloric intake of all elves given a file path for text inputs.
 ;; Output is sorted from highest to lowest caloric intake.
-;; Path-String -> List[Number]
+;; Path-string -> List[Number]
 ;; Example: "data/file.txt" -> [5000, 4500, 12, 0]
 (provide sorted-elf-intake)
 (define (sorted-elf-intake file_path)
@@ -30,7 +32,7 @@
 ;; Example: [1000, 2000, #f, 12, #f], [1000, 1000] -> [0, 12, 4000, 1000]
 (define (foods-to-elves foods elves)
     (cond
-        [(empty? foods) elves]
+        [(null? foods) elves]
         [else (foods-to-elves (cdr foods) (add-food (car foods) elves))]
     )
 )
@@ -43,7 +45,7 @@
 ;; Example: #f, [2000, 1000] -> [0, 2000, 1000]
 (define (add-food food elves)
     (cond
-        [(false? food) (cons 0 elves)]
+        [(not food) (cons 0 elves)]
         [else (cons (+ food (car elves)) (cdr elves))]
     )
 )

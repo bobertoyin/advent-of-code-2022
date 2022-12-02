@@ -2,6 +2,8 @@
 
 Solutions for [Advent of Code 2022](https://adventofcode.com/2022), done in [Racket](https://racket-lang.org).
 
+If you're seeing this on GitHub, maybe check it out on [Gitea](http://git.bobertoyin.com/bobertoyin/advent-of-code-2022)!
+
 ## Rationale
 
 Racket. Huh. Racket doesn't seem to be a historically popular choice for Advent of Code[^1], but I figured I'd take 25 days out of my year to try something new. 
@@ -44,6 +46,7 @@ Times are recorded using `time racket advent/(day).rkt`.
 Day | Time (Seconds)
 --- | --------------
 1   | ~0.35s
+2   | ~0.36s
 
 ## Footnotes
 
