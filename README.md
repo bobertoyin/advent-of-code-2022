@@ -43,11 +43,13 @@ This is mostly meaningless, but also somewhat harmless.
 
 Times are recorded using `time racket advent/(day).rkt`.
 
-Day | Time (Seconds)
---- | --------------
-1   | ~0.32-0.35s
-2   | ~0.34-0.36s
-3   | ~0.35-0.38s
+Day | Time (Seconds) | Completion Date*
+--- | -------------- | ---------------
+1   | ~0.32-0.35s    | Dec. 1, 2022
+2   | ~0.34-0.36s    | Dec. 2, 2022
+3   | ~0.35-0.38s    | Dec. 3, 2022
+
+> \*There is a non-zero chance that I don't complete some of the puzzles on the day of release, especially as the puzzles get harder.
 
 ## Footnotes
 
