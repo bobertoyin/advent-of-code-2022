@@ -45,8 +45,9 @@ Times are recorded using `time racket advent/(day).rkt`.
 
 Day | Time (Seconds)
 --- | --------------
-1   | ~0.35s
-2   | ~0.36s
+1   | ~0.32-0.35s
+2   | ~0.34-0.36s
+3   | ~0.35-0.38s
 
 ## Footnotes
 

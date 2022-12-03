@@ -7,11 +7,10 @@
 (define TEST-FILE "input/1-test.txt")
 
 ;; MAIN
-(module+ main 
-    (define SORTED_ELVES (sorted-elf-intake FILE))
-    (car SORTED_ELVES)
-    (first-n-sum 3 SORTED_ELVES)
-)
+(module+ main
+  (define SORTED_ELVES (sorted-elf-intake FILE))
+  (car SORTED_ELVES)
+  (first-n-sum 3 SORTED_ELVES))
 
 ;; PART ONE
 
@@ -21,8 +20,7 @@
 ;; Example: "data/file.txt" -> [5000, 4500, 12, 0]
 (provide sorted-elf-intake)
 (define (sorted-elf-intake file_path)
-    (sort (foods-to-elves (map string->number (file->lines file_path)) (list 0)) >)
-)
+  (sort (foods-to-elves (map string->number (file->lines file_path)) (list 0)) >))
 
 ;; Add foods (calories) for the list of elves. There must be at least one elf to start.
 ;; A food of #f indicates that the following foods are for new elf records.
@@ -31,11 +29,9 @@
 ;; Example: [1000, 2000, #f, 12], [0] -> [12, 3000]
 ;; Example: [1000, 2000, #f, 12, #f], [1000, 1000] -> [0, 12, 4000, 1000]
 (define (foods-to-elves foods elves)
-    (cond
-        [(null? foods) elves]
-        [else (foods-to-elves (cdr foods) (add-food (car foods) elves))]
-    )
-)
+  (cond
+    [(null? foods) elves]
+    [else (foods-to-elves (cdr foods) (add-food (car foods) elves))]))
 
 ;; Add a single food (calorie count) for the list of elves. There must be at least one elf to start.
 ;; A food of #f indicates that a new elf record must be made.
@@ -44,11 +40,9 @@
 ;; Example: 1000, [2000, 1000] -> [3000, 1000]
 ;; Example: #f, [2000, 1000] -> [0, 2000, 1000]
 (define (add-food food elves)
-    (cond
-        [(not food) (cons 0 elves)]
-        [else (cons (+ food (car elves)) (cdr elves))]
-    )
-)
+  (cond
+    [(not food) (cons 0 elves)]
+    [else (cons (+ food (car elves)) (cdr elves))]))
 
 ;; PART TWO
 
@@ -58,8 +52,6 @@
 ;; Example: 3, [1, 2, 3, 4] -> 6
 (provide first-n-sum)
 (define (first-n-sum n values)
-    (cond
-        [(= n 1) (car values)]
-        [else (+ (car values) (first-n-sum (- n 1) (cdr values)))]
-    )
-)
+  (cond
+    [(= n 1) (car values)]
+    [else (+ (car values) (first-n-sum (- n 1) (cdr values)))]))
