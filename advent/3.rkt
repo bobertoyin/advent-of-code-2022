@@ -7,7 +7,7 @@
 (provide TEST-FILE)
 (define TEST-FILE "input/3-test.txt")
 
-;;MAIN
+;; MAIN
 (module+ main
   (sum-priorities (map priorities (map shared-items (map rucksack (file->lines FILE)))))
   (sum-priorities (map priorities (map badge (make-groups (map string->set (file->lines FILE)) 3)))))
