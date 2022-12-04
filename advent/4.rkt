@@ -8,11 +8,14 @@
 
 ;; MAIN
 (module+ main
-  (define PARSED (map parse-line (file->lines FILE)))
-  (filter-length full-containment PARSED)
-  (filter-length partial-containment PARSED))
+  (part-one FILE)
+  (part-two FILE))
 
 ;; PART ONE
+
+(provide part-one)
+(define (part-one FILE-PATH)
+  (filter-length full-containment (map parse-line (file->lines FILE-PATH))))
 
 (define (filter-length func input)
   (length (filter (lambda (line) (func (first line) (last line))) input)))
@@ -25,6 +28,10 @@
       (and (>= (first one) (first two)) (<= (last one) (last two)))))
 
 ;; PART TWO
+
+(provide part-two)
+(define (part-two FILE-PATH)
+  (filter-length partial-containment (map parse-line (file->lines FILE-PATH))))
 
 (define (partial-containment one two)
   (and (>= (last one) (first two)) (<= (first one) (last two))))

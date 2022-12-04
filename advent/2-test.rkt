@@ -1,7 +1,6 @@
 #lang racket/base
 
-(require (only-in racket first)
-         rackunit
+(require rackunit
          "2.rkt")
 
 (check-equal? (foldl + 0 (score-interactions TEST-FILE)) 15 "part one sample test")
