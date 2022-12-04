@@ -10,22 +10,24 @@ Racket. Huh. Racket doesn't seem to be a historically popular choice for Advent 
 
 Here's why I'm choosing Racket for Advent of Code 2022:
 
-1. I'm familiar with Racket's syntax and some of its offshoots.
+1. To explore a new language ecosystem while maintaining familiarity with syntax and fundamentals.
 
-    - I got acquainted with Racket's [student languages](https://docs.racket-lang.org/htdp-langs/index.html) during the Fall of my freshman year. Prefix notation and parantheses shan't scare me away.
+    - I've used Racket's [student languages](https://docs.racket-lang.org/htdp-langs/index.html) 
+    during my first year of undergrad, but this'll be the first time that I have all of `#lang racket` 
+    (or more realistically, `#lang racket/base` with some `require` statements) at my disposal.
 
-2. The full Racket experience is completely new to me.
+2. To practice functional programming.
 
-    - This'll be my first time having all of `#lang racket` at my disposal. 
+    - While Racket does support other programming paradigms, a lot of the standard library and core language is built for functional programming.
+    And while I'm used to using functional programming in more mainstream langauages, I figure it's good to practice anyways.
 
-3. I'd like to spend some more time in the functional programming world.
+3. To keep solutions as simple scripting files.
 
-    - I'm used to applying functional programming styles to langauges like Python, but I think it'll be a little easier to adhere to this practice by using a language that heavily supports and advocates for it.
+    - Outside of declaring a "main" module and helper functions for code organization, being able to avoid heavy code boilerplate/overhead and strict file/directory requirements allows me to keep this repository lean and simple.
 
-4. I'd like to keep my syntax and programming concepts simple.
+4. To avoid overkill language features.
 
-    - As much as I've enjoyed tinkering with Rust and thinking about Go, Haskell, or other cool languages (I rival Hamlet in the practice of inaction[^2] here), the overhead and learning curve for most of those languages would be too much for me right now. I'd love to learn how to apply Go's concurrency model or Haskell's lazy evaluation to Advent of Code, but getting bitten by Rust's borrow checker, Go's error handling, or Haskell's monad system should be saved for another time of the year.
-    - I'm also choosing to use languages that are more script-oriented than project-oriented, while also trying to learn something new. Thus, although I've gotten used to plenty of Python, it'll have to be saved for other endeavors.
+    - This is not to say that Racket *isn't* a language with many features or third-party libraries, but instead that Racket's core language and standard library should be lean enough to solve the puzzles without loading up on excessive or high-learning curve features.
 
 ## File Structure
 
@@ -35,21 +37,15 @@ Each day's implementation code is located in `advent/(day).rkt`, with simple "te
 
 Each day's file input is located in `input/(day).txt`, with the simple test input (provided by Advent of Code) in `input/(day)-test.txt`
 
-## Runtime Performance Table
-
-> `(day)` is the numerical value for each day.
-
-This is mostly meaningless, but also somewhat harmless. 
+## Performance
 
 Times are recorded using `time racket advent/(day).rkt`.
 
-Day | Time (Seconds) | Completion Date*
+Day | Time (Seconds) | Completion Date
 --- | -------------- | ---------------
 1   | ~0.32-0.35s    | Dec. 1, 2022
 2   | ~0.34-0.36s    | Dec. 2, 2022
 3   | ~0.35-0.38s    | Dec. 3, 2022
-
-> \*There is a non-zero chance that I don't complete some of the puzzles on the day of release, especially as the puzzles get harder.
 
 ## Footnotes
 
