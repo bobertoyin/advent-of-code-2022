@@ -37,17 +37,17 @@ Each day's implementation code is located in `advent/(day).rkt`, with simple "te
 
 Each day's file input is located in `input/(day).txt`, with the simple test input (provided by Advent of Code) in `input/(day)-test.txt`
 
-## Performance
+## Runtime Performance
 
 Times are recorded using `time racket advent/(day).rkt`.
 
-Day | Time (Seconds) | Completion Date
---- | -------------- | ---------------
-1   | ~0.32-0.35s    | Dec. 1, 2022
-2   | ~0.34-0.36s    | Dec. 2, 2022
-3   | ~0.35-0.38s    | Dec. 3, 2022
-4   | ~0.35-0.37s    | Dec. 4, 2022
-5   | ~0.35-0.37s    | Dec. 5, 2022
+Day | Runtime           | Completion Date
+--- | ----------------- | ---------------
+1   | ~0.32-0.35s       | Dec. 1, 2022
+2   | ~0.34-0.36s       | Dec. 2, 2022
+3   | ~0.35-0.38s       | Dec. 3, 2022
+4   | ~0.35-0.37s       | Dec. 4, 2022
+5   | ~0.35-0.37s       | Dec. 5, 2022
 
 ## Footnotes
 
