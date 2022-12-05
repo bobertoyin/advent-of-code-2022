@@ -47,6 +47,7 @@ Day | Time (Seconds) | Completion Date
 2   | ~0.34-0.36s    | Dec. 2, 2022
 3   | ~0.35-0.38s    | Dec. 3, 2022
 4   | ~0.35-0.37s    | Dec. 4, 2022
+5   | ~0.35-0.37s    | Dec. 5, 2022
 
 ## Footnotes
 
