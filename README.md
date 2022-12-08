@@ -50,7 +50,7 @@ Day | Runtime           | Completion Date
 5   | ~0.35-0.37s       | Dec. 5, 2022
 6   | ~0.40-0.44s       | Dec. 6, 2022
 7   | ~0.41-0.44s       | Dec. 7, 2022
-8   | ~0.43-0.45s       | Dec. 8, 2022
+8   | ~0.41-0.44s       | Dec. 8, 2022
 
 ## Footnotes
 

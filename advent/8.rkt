@@ -1,6 +1,6 @@
 #lang racket/base
 
-(require (only-in racket file->lines string->list first rest range flatten)
+(require (only-in racket file->lines string->list range flatten)
          racket/set)
 
 (define FILE "input/8.txt")
@@ -32,8 +32,8 @@
   (cond
     [(null? tree-line) '()]
     [else
-     (define first-tree (first tree-line))
-     (define rest-trees (rest tree-line))
+     (define first-tree (car tree-line))
+     (define rest-trees (cdr tree-line))
      (if (> (tree-height first-tree) max-height)
          (cons first-tree (visible-line-helper rest-trees (max (tree-height first-tree) max-height)))
          (visible-line-helper rest-trees (max (tree-height first-tree) max-height)))]))
@@ -41,7 +41,7 @@
 (define (rows->columns rows)
   (if (foldl (lambda (one two) (and one two)) #t (map null? rows))
       '()
-      (cons (map first rows) (rows->columns (map rest rows)))))
+      (cons (map car rows) (rows->columns (map cdr rows)))))
 
 (define (row->posns row row-index)
   (define columns (map string->number (map string (string->list row))))
@@ -64,8 +64,8 @@
   (cond
     [(null? tree-line) table]
     [else
-     (define first-tree (first tree-line))
-     (define rest-trees (rest tree-line))
+     (define first-tree (car tree-line))
+     (define rest-trees (cdr tree-line))
      (define score (score-single first-tree last-trees))
      (score-line-helper (update-table table first-tree score)
                         rest-trees
