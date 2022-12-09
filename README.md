@@ -39,6 +39,8 @@ Each day's file input is located in `input/(day).txt`, with the simple test inpu
 
 ## Runtime Performance
 
+> Expect these runtimes to be underwhelming and not very impressive, as many of the solutions are not optimal in both algorithmic design and Racket implementation.
+
 Times are recorded using `time racket advent/(day).rkt`.
 
 Day | Runtime           | Completion Date
