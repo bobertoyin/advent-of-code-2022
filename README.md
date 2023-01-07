@@ -2,8 +2,6 @@
 
 Solutions for [Advent of Code 2022](https://adventofcode.com/2022), done in [Racket](https://racket-lang.org).
 
-If you're seeing this on GitHub, maybe check it out on [Gitea](http://git.bobertoyin.com/bobertoyin/advent-of-code-2022)!
-
 ## Rationale
 
 Racket. Huh. Racket doesn't seem to be a historically popular choice for Advent of Code[^1], but I figured I'd take 25 days out of my year to try something new. 
@@ -33,28 +31,28 @@ Here's why I'm choosing Racket for Advent of Code 2022:
 
 > `(day)` is the numerical value for each day.
 
-Each day's implementation code is located in `advent/(day).rkt`, with simple "tests" (depending on how lazy I get) in `advent/(day)-test.rkt`.
+Each day's implementation code is located in `advent/(day).rkt`, with simple "tests" (depending on how lazy I get) in `test/(day).rkt`.
 
-Each day's file input is located in `input/(day).txt`, with the simple test input (provided by Advent of Code) in `input/(day)-test.txt`
+Each day's file input is located in `input/(day).txt`, with the simple test input (provided by Advent of Code) in `input/(day)-test.txt`.
 
-## Runtime Performance
+## Tests
 
-> Expect these runtimes to be underwhelming and not very impressive, as many of the solutions are not optimal in both algorithmic design and Racket implementation.
+The simple "tests" can all be run with `./test.sh`.
 
-Times are recorded using `time racket advent/(day).rkt`.
+## Completion Dates
 
-Day | Runtime           | Completion Date
---- | ----------------- | ---------------
-1   | ~0.32-0.35s       | Dec. 1, 2022
-2   | ~0.34-0.36s       | Dec. 2, 2022
-3   | ~0.35-0.38s       | Dec. 3, 2022
-4   | ~0.35-0.37s       | Dec. 4, 2022
-5   | ~0.35-0.37s       | Dec. 5, 2022
-6   | ~0.40-0.44s       | Dec. 6, 2022
-7   | ~0.41-0.44s       | Dec. 7, 2022
-8   | ~0.41-0.44s       | Dec. 8, 2022
-9   | ~0.76-0.79s       | Dec. 9, 2022
-10  | ~0.39-0.43s       | Dec. 10, 2022
+Day | Completion Date
+--- | ---------------
+1   | Dec. 1, 2022
+2   | Dec. 2, 2022
+3   | Dec. 3, 2022
+4   | Dec. 4, 2022
+5   | Dec. 5, 2022
+6   | Dec. 6, 2022
+7   | Dec. 7, 2022
+8   | Dec. 8, 2022
+9   | Dec. 9, 2022
+10  | Dec. 10, 2022
 
 ## Footnotes
 

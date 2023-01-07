@@ -1,7 +1,7 @@
 #lang racket/base
 
 (require rackunit
-         "3.rkt")
+         "../advent/3.rkt")
 
 (check-equal? (part-one TEST-FILE) 157 "part one sample test")
 
