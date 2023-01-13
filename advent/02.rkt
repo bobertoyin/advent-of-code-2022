@@ -1,6 +1,6 @@
 #lang racket/base
 
-(require (only-in racket file->lines string-split first last))
+(require (only-in racket file->lines string-split))
 
 (define FILE "input/02.txt")
 (provide TEST-FILE)
