@@ -2,95 +2,96 @@
 
 (require (only-in racket file->lines string-split first last))
 
-(define FILE "input/2.txt")
+(define FILE "input/02.txt")
 (provide TEST-FILE)
-(define TEST-FILE "input/2-test.txt")
+(define TEST-FILE "input/02-test.txt")
 
-;; MAIN
 (module+ main
-  (foldl + 0 (score-interactions FILE))
-  (foldl + 0 (score-expectations FILE)))
-
-;; PART ONE
+  (evaluate-interactions score-by-outcome FILE)
+  (evaluate-interactions score-by-expectation FILE))
 
 ;; Represents the possible player/opponent choices in the game of Rock, Paper, Scissors.
 (define ROCK "rock")
 (define PAPER "paper")
 (define SCISSORS "scissors")
-
 ;; Represents the possible outcomes in the game of Rock, Paper, Scissors.
 (define DRAW "draw")
 (define LOSE "lose")
 (define WIN "win")
+;; Maps an opponent's choice from encrypted representation to decrypted representation.
+(define opponent-decrypt-table (hash "A" ROCK "B" PAPER "C" SCISSORS))
+;; Maps a player's choice from encrypted representation to decrypted representation.
+(define player-decrypt-table (hash "X" ROCK "Y" PAPER "Z" SCISSORS))
+;; Maps an interaction's result from encrypted representation to decrypted representation.
+(define result-decrypt-table (hash "X" LOSE "Y" DRAW "Z" WIN))
+;; Maps a move choice from decrypted representation to value.
+(define move-value-table (hash ROCK 1 PAPER 2 SCISSORS 3))
+;; Maps an interaction's result from decrypted representation to value.
+(define result-value-table (hash LOSE 0 DRAW 3 WIN 6))
 
-;; Create the correct list of inputs from each file.
-;; Effectively just "__ __" -> (list "__" "__") for each line.
-;; Path-string -> List[List[String]]
-;; Example: "test.txt" -> [["A", "X"], ["B", "Z"], ["C", "Y"]]
+#| Evaluate strategy guide interactions based on a specified evaluation rule.
+
+Also takes the input text file representing the strategy guide interactions.
+
+Function[[String, String] -> Number], Path-string -> Number
+
+Example: (lambda pair (+ (length (car pair)) (length (cdr pair)))), "input/test.txt" -> 32
+|#
+(provide evaluate-interactions)
+(define (evaluate-interactions eval file-path)
+  (foldl + 0 (map eval (create-inputs file-path))))
+
+#| Create the list of interactions from a given file.
+
+Interactions are represented as pairs of strings.
+
+Path-string -> List[[String, String]]
+
+Example: "test.txt" -> [["A", "X"], ["B", "Z"], ["C", "Y"]]
+|#
 (define (create-inputs file-path)
-  (map string-split (file->lines file-path)))
+  (map (lambda lst (cons (caar lst) (cdar lst))) (map string-split (file->lines file-path))))
 
-;; Returns the scores of all encrypted game interactions.
-;; Takes in the file path containing the encrypted lines of "*opponent* *player*".
-;; Path-string -> List[Number]
-;; Example: "test.txt" -> [2, 6, 4]
-(provide score-interactions)
-(define (score-interactions file-path)
-  (map score-interaction (create-inputs file-path)))
+#| Score an encrypted interaction based on the outcome.
 
-;; Score a single encrypted interaction.
-;; List[String] -> Number
-;; Example: ["A", "X"] -> 4
-(define (score-interaction interaction)
-  (score-interaction-helper (decrypt-opponent (first interaction))
-                            (decrypt-player (last interaction))))
+This means that the interaction represents the opponent's move and the player's move.
 
-;; Score an interaction between a decrypted opponent and decrypted player.
-;; String, String -> Number
-;; Example: "A", "X" -> 4
-(define (score-interaction-helper opponent player)
-  (+ (choice-value player) (result-value (interaction-result opponent player))))
+[String, String] -> Number
 
-;; Decrypt an opponent's decision.
-;; String -> String
-;; Example: "A" -> "rock"
-(define (decrypt-opponent encrypted)
-  (cond
-    [(string=? encrypted "A") ROCK]
-    [(string=? encrypted "B") PAPER]
-    [(string=? encrypted "C") SCISSORS]))
+Example: ["A", "Y"] -> 8
+|#
+(provide score-by-outcome)
+(define (score-by-outcome interaction)
+  (define opponent (hash-ref opponent-decrypt-table (car interaction)))
+  (define player (hash-ref player-decrypt-table (cadr interaction)))
+  (+ (hash-ref result-value-table (interaction->result opponent player))
+     (hash-ref move-value-table player)))
 
-;; Decrypt a player's decision.
-;; String -> String
-;; Example: "X" -> "rock"
-(define (decrypt-player encrypted)
-  (cond
-    [(string=? encrypted "X") ROCK]
-    [(string=? encrypted "Y") PAPER]
-    [(string=? encrypted "Z") SCISSORS]))
+#| Score an encrypted interaction based on the what the player should do.
 
-;; Determine the value of a person's choice.
-;; String -> Number
-;; Example: "rock" -> 1
-(define (choice-value choice)
-  (cond
-    [(string=? choice ROCK) 1]
-    [(string=? choice PAPER) 2]
-    [(string=? choice SCISSORS) 3]))
+This means that the interaction represents the opponent's move and whether the player
+should win, draw, or lose.
 
-;; Determine the value of a game's result.
-;; String -> Number
-;; Example: "lose" -> 0
-(define (result-value result)
-  (cond
-    [(string=? result LOSE) 0]
-    [(string=? result DRAW) 3]
-    [(string=? result WIN) 6]))
+[String, String] -> Number
 
-;; Determine the result of a game between a decrypted opponent and decrypted player.
-;; String, String -> String
-;; Example: "rock", "paper" -> "win"
-(define (interaction-result opponent player)
+Example: ["A", "Y"] -> 4
+|#
+(provide score-by-expectation)
+(define (score-by-expectation interaction)
+  (define opponent (hash-ref opponent-decrypt-table (car interaction)))
+  (define expectation (hash-ref result-decrypt-table (cadr interaction)))
+  (+ (hash-ref result-value-table expectation)
+     (hash-ref move-value-table (interaction->expectation opponent expectation))))
+
+#| Determine the result of an interaction.
+
+Takes the decrypted opponent move and the decrypted player move.
+
+[String, String] -> String
+
+Example: ["rock", "scissors"] -> "lose"
+|#
+(define (interaction->result opponent player)
   (cond
     [(string=? opponent ROCK)
      (cond
@@ -108,42 +109,15 @@
        [(string=? player PAPER) LOSE]
        [(string=? player SCISSORS) DRAW])]))
 
-;; PART TWO
+#| Determine the required player move for a desired outcome.
 
-;;; Returns the scores of all encrypted game expectations.
-;; Takes in the file path containing the encrypted lines of "*opponent* *result*".
-;; Path-string -> List[Number]
-;; Example: "test.txt" -> [2, 6, 4]
-(provide score-expectations)
-(define (score-expectations file-path)
-  (map score-expectation (create-inputs file-path)))
+Takes the decrypted opponent move and the decrypted expected outcome.
 
-;; Score a single encrypted expectation.
-;; List[String] -> Number
-;; Example: ["A", "X"] -> 2
-(define (score-expectation expectation)
-  (score-expectation-helper (decrypt-opponent (first expectation))
-                            (decrypt-result (last expectation))))
+[String, String] -> String
 
-;; Score an expectation between a decrypted opponent and decrypted result.
-;; String, String -> Number
-;; Example: "A", "X" -> 2
-(define (score-expectation-helper opponent outcome)
-  (+ (result-value outcome) (choice-value (player-expectation opponent outcome))))
-
-;; Decrypt an expected result.
-;; String -> String
-;; Example: "X" -> "lose"
-(define (decrypt-result encrypted)
-  (cond
-    [(string=? encrypted "X") LOSE]
-    [(string=? encrypted "Y") DRAW]
-    [(string=? encrypted "Z") WIN]))
-
-;; Determine the player choice required to acheive a decrypted outcome against a decrypted opponent.
-;; String, String -> String
-;; Example: "rock", "win" -> "paper"
-(define (player-expectation opponent outcome)
+Example: ["rock", "lose"] -> "scissors"
+|#
+(define (interaction->expectation opponent outcome)
   (cond
     [(string=? outcome DRAW) opponent]
     [(string=? outcome LOSE)
