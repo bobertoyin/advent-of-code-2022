@@ -24,12 +24,10 @@
 (struct monkey (number items op test) #:transparent)
 
 (define (run-round table)
-    (hash-values table #t)
-)
+  (hash-values table #t))
 
 (define (throw-to item op test)
-    (test (floor (/ (op item) 3)))
-)
+  (test (floor (/ (op item) 3))))
 
 (define (build-monkey-table monkey table)
   (hash-set table (monkey-number monkey) monkey))

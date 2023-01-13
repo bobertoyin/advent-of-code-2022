@@ -1,7 +1,7 @@
 #lang racket/base
 
 (require rackunit
-         "../advent/2.rkt")
+         "../advent/02.rkt")
 
 (check-equal? (foldl + 0 (score-interactions TEST-FILE)) 15 "part one sample test")
 
